@@ -1,0 +1,484 @@
+<!--
+=======================================================
+  ✏️  منطقة التعديل — EDITABLE TEXT AREA
+  عدّل النصوص هنا فقط، ولا تلمس أي شيء آخر في الملف
+  Only edit the text between the quote marks " "
+=======================================================
+
+  PAGE_TITLE        = "دورة أبعد من إمكانيات الإضاءة"
+  EYEBROW_TEXT      = "وصول حصري · EXCLUSIVE ACCESS"
+  COURSE_TITLE      = "دورة أبعد من إمكانيات الإضاءة"
+  SUBTITLE          = "أدخل رمز الوصول الخاص بك للدخول إلى محتوى الدورة"
+  FIELD_LABEL       = "رمز الوصول"
+  INPUT_PLACEHOLDER = "XXXX-XXXX"
+  BUTTON_TEXT       = "دخول إلى الدورة"
+
+  SUCCESS_TITLE     = "مرحباً بك في الدورة"
+  SUCCESS_SUB       = "جارٍ تحويلك إلى المحتوى..."
+
+  ERROR_EMPTY       = "الرجاء إدخال رمز الوصول"
+  ERROR_WRONG       = "رمز الوصول غير صحيح. يرجى المحاولة مرة أخرى."
+  ERROR_LOCKED      = "تم تجاوز عدد المحاولات المسموح بها. يرجى التواصل مع الدعم."
+
+  FOOTER_LINE_1     = "هذه الدورة حصرية للمشتركين فقط"
+  FOOTER_LINE_2     = "للدعم: تواصل معنا عبر الإيميل Angawi.Majid@gmail.com"
+
+=======================================================
+  🔒  نهاية منطقة التعديل — END OF EDITABLE AREA
+=======================================================
+-->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>دورة أبعد من إمكانيات الإضاءة</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8D08A;
+      --bg: #0A0A0A;
+      --surface: #111111;
+      --surface2: #1A1A1A;
+      --border: #2a2a2a;
+      --text: #F5F0E8;
+      --muted: #888888;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Tajawal', sans-serif;
+      overflow: hidden;
+    }
+
+    /* Ambient background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 20% 80%, rgba(201,168,76,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 80% 20%, rgba(201,168,76,0.04) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Grain overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 460px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--gold);
+      padding: 3rem 2.5rem;
+      position: relative;
+      animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Corner accents */
+    .card::before, .card::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-color: var(--gold);
+      border-style: solid;
+      opacity: 0.4;
+    }
+    .card::before { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+    .card::after  { bottom: -1px; left: -1px;  border-width: 0 0 2px 2px; }
+
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      opacity: 0.85;
+    }
+
+    .title {
+      font-size: 1.7rem;
+      font-weight: 800;
+      line-height: 1.3;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+
+    .divider {
+      width: 40px;
+      height: 2px;
+      background: var(--gold);
+      margin-bottom: 2rem;
+      opacity: 0.6;
+    }
+
+    .label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.6rem;
+      display: block;
+    }
+
+    .input-wrap {
+      position: relative;
+      margin-bottom: 1.2rem;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 0;
+      color: var(--text);
+      font-family: 'Tajawal', monospace;
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      padding: 0.9rem 1rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      text-align: center;
+      direction: ltr;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.08);
+    }
+
+    input[type="text"].error {
+      border-color: #c0392b;
+      box-shadow: 0 0 0 3px rgba(192,57,43,0.08);
+      animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+    }
+
+    input[type="text"].success {
+      border-color: #27ae60;
+      box-shadow: 0 0 0 3px rgba(39,174,96,0.08);
+    }
+
+    @keyframes shake {
+      10%, 90% { transform: translateX(-2px); }
+      20%, 80% { transform: translateX(4px); }
+      30%, 50%, 70% { transform: translateX(-4px); }
+      40%, 60% { transform: translateX(4px); }
+    }
+
+    .btn {
+      width: 100%;
+      background: var(--gold);
+      color: #0A0A0A;
+      border: none;
+      padding: 0.95rem 1rem;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn:hover { background: var(--gold-light); }
+    .btn:active { transform: scale(0.98); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .msg {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      text-align: center;
+      min-height: 1.2em;
+      transition: opacity 0.3s;
+    }
+    .msg.error   { color: #e74c3c; }
+    .msg.success { color: #2ecc71; }
+
+    .attempts {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 0.5rem;
+      opacity: 0.6;
+    }
+
+    .footer {
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+      opacity: 0.5;
+      line-height: 1.8;
+    }
+
+    /* Success overlay */
+    .success-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,10,10,0.95);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+      animation: fadeIn 0.4s ease both;
+    }
+
+    .success-overlay.show { display: flex; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+    }
+
+    @keyframes scaleIn {
+      from { transform: scale(0.5); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+
+    .success-icon svg { width: 28px; height: 28px; stroke: var(--gold); fill: none; stroke-width: 2.5; }
+    .success-text { font-size: 1.2rem; font-weight: 700; color: var(--gold-light); }
+    .success-sub { font-size: 0.85rem; color: var(--muted); }
+
+    /* Loading spinner */
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(0,0,0,0.2);
+      border-top-color: #0A0A0A;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 480px) {
+      .card { padding: 2rem 1.5rem; }
+      .title { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="card">
+    <div class="eyebrow">وصول حصري · EXCLUSIVE ACCESS</div>
+    <h1 class="title">دورة أبعد من إمكانيات الإضاءة</h1>
+    <p class="subtitle">أدخل رمز الوصول الخاص بك للدخول إلى محتوى الدورة</p>
+    <div class="divider"></div>
+
+    <label class="label">رمز الوصول</label>
+    <div class="input-wrap">
+      <input
+        type="text"
+        id="codeInput"
+        placeholder="XXXX-XXXX"
+        autocomplete="off"
+        autocorrect="off"
+        spellcheck="false"
+        maxlength="20"
+      />
+    </div>
+
+    <button class="btn" id="enterBtn" onclick="checkCode()">
+      <span id="btnText">دخول إلى الدورة</span>
+    </button>
+
+    <div class="msg" id="msg"></div>
+    <div class="attempts" id="attemptsMsg"></div>
+
+    <div class="footer">
+      هذه الدورة حصرية للمشتركين فقط<br/>
+      للدعم: تواصل معنا عبر الإيميل Angawi.Majid@gmail.com
+    </div>
+  </div>
+</div>
+
+<!-- Success overlay -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-icon">
+    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+  </div>
+  <div class="success-text">مرحباً بك في الدورة</div>
+  <div class="success-sub">جارٍ تحويلك إلى المحتوى...</div>
+</div>
+
+<script>
+  // ============================================================
+  // CONFIGURATION — Edit this section only
+  // ============================================================
+
+  // The URL of your Google Sites course page
+  const COURSE_URL = "https://sites.google.com/view/111-mabl/home";
+
+  // Your valid access codes — add as many as you need
+  // Each code should be unique per customer
+  // Format suggestion: MABL-XXXX (e.g. MABL-7291)
+  const VALID_CODES = [
+    "MABL-1001",
+    "MABL-1002",
+    "MABL-1003",
+    "MABL-1004",
+    "MABL-1005",
+    "MABL-1006",
+    "MABL-1007",
+    "MABL-1008",
+    "MABL-1009",
+    "MABL-1010",
+    "MABL-1011",
+    "MABL-1012",
+    "MABL-1013",
+    "MABL-1014",
+    "MABL-1015",
+    "MABL-1016",
+    "MABL-1017",
+    "MABL-1018",
+    "MABL-1019",
+    "MABL-1020",
+    // Add more codes here as needed
+    // To generate more, use the Code Generator tool (course-codes.html)
+  ];
+
+  // Max failed attempts before lockout (per session)
+  const MAX_ATTEMPTS = 5;
+
+  // ============================================================
+  // Logic — Do not edit below this line
+  // ============================================================
+
+  let attempts = 0;
+  let locked = false;
+
+  const input   = document.getElementById('codeInput');
+  const btn     = document.getElementById('enterBtn');
+  const msg     = document.getElementById('msg');
+  const attMsg  = document.getElementById('attemptsMsg');
+  const overlay = document.getElementById('successOverlay');
+
+  // Allow Enter key
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !locked) checkCode();
+  });
+
+  // Auto-uppercase as user types
+  input.addEventListener('input', () => {
+    input.value = input.value.toUpperCase();
+    input.classList.remove('error', 'success');
+    msg.textContent = '';
+    msg.className = 'msg';
+  });
+
+  function checkCode() {
+    if (locked) return;
+
+    const code = input.value.trim().toUpperCase();
+
+    if (!code) {
+      showMsg('الرجاء إدخال رمز الوصول', 'error');
+      input.focus();
+      return;
+    }
+
+    // Show loading state
+    btn.disabled = true;
+    document.getElementById('btnText').innerHTML = '<div class="spinner"></div>';
+
+    setTimeout(() => {
+      if (VALID_CODES.includes(code)) {
+        // Valid code
+        input.classList.add('success');
+        overlay.classList.add('show');
+
+        setTimeout(() => {
+          window.location.href = COURSE_URL;
+        }, 1800);
+
+      } else {
+        // Invalid code
+        attempts++;
+        input.classList.add('error');
+        btn.disabled = false;
+        document.getElementById('btnText').textContent = 'دخول إلى الدورة';
+
+        const remaining = MAX_ATTEMPTS - attempts;
+
+        if (attempts >= MAX_ATTEMPTS) {
+          locked = true;
+          btn.disabled = true;
+          showMsg('تم تجاوز عدد المحاولات المسموح بها. يرجى التواصل مع الدعم.', 'error');
+          attMsg.textContent = '';
+          input.disabled = true;
+        } else {
+          showMsg('رمز الوصول غير صحيح. يرجى المحاولة مرة أخرى.', 'error');
+          attMsg.textContent = `متبقي ${remaining} محاولة`;
+        }
+
+        input.select();
+      }
+    }, 700); // Slight delay feels more secure
+  }
+
+  function showMsg(text, type) {
+    msg.textContent = text;
+    msg.className = `msg ${type}`;
+  }
+</script>
+
+</body>
+</html>
