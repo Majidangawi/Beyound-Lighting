@@ -1,30 +1,14 @@
 <!--
 =======================================================
-  ✏️  منطقة التعديل — EDITABLE TEXT AREA
-  عدّل النصوص هنا فقط، ولا تلمس أي شيء آخر في الملف
-  Only edit the text between the quote marks " "
+  ✏️  منطقة التعديل — EDITABLE CONFIGURATION
+  Only edit the values in the CONFIG section below.
 =======================================================
 
-  PAGE_TITLE        = "دورة أبعد من إمكانيات الإضاءة"
-  EYEBROW_TEXT      = "وصول حصري · EXCLUSIVE ACCESS"
   COURSE_TITLE      = "دورة أبعد من إمكانيات الإضاءة"
   SUBTITLE          = "أدخل رمز الوصول الخاص بك للدخول إلى محتوى الدورة"
-  FIELD_LABEL       = "رمز الوصول"
-  INPUT_PLACEHOLDER = "XXXX-XXXX"
-  BUTTON_TEXT       = "دخول إلى الدورة"
-
-  SUCCESS_TITLE     = "مرحباً بك في الدورة"
-  SUCCESS_SUB       = "جارٍ تحويلك إلى المحتوى..."
-
-  ERROR_EMPTY       = "الرجاء إدخال رمز الوصول"
-  ERROR_WRONG       = "رمز الوصول غير صحيح. يرجى المحاولة مرة أخرى."
-  ERROR_LOCKED      = "تم تجاوز عدد المحاولات المسموح بها. يرجى التواصل مع الدعم."
-
-  FOOTER_LINE_1     = "هذه الدورة حصرية للمشتركين فقط"
-  FOOTER_LINE_2     = "للدعم: تواصل معنا عبر الإيميل support@malearnsa.com"
 
 =======================================================
-  🔒  نهاية منطقة التعديل — END OF EDITABLE AREA
+  🔒  نهاية منطقة التعديل
 =======================================================
 -->
 <!DOCTYPE html>
@@ -56,7 +40,6 @@
       overflow: hidden;
     }
 
-    /* Ambient background */
     body::before {
       content: '';
       position: fixed;
@@ -68,7 +51,6 @@
       z-index: 0;
     }
 
-    /* Grain overlay */
     body::after {
       content: '';
       position: fixed;
@@ -106,7 +88,6 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* Corner accents */
     .card::before, .card::after {
       content: '';
       position: absolute;
@@ -257,7 +238,6 @@
       line-height: 1.8;
     }
 
-    /* Success overlay */
     .success-overlay {
       display: none;
       position: fixed;
@@ -298,7 +278,6 @@
     .success-text { font-size: 1.2rem; font-weight: 700; color: var(--gold-light); }
     .success-sub { font-size: 0.85rem; color: var(--muted); }
 
-    /* Loading spinner */
     .spinner {
       width: 18px; height: 18px;
       border: 2px solid rgba(0,0,0,0.2);
@@ -361,113 +340,37 @@
 
 <script>
   // ============================================================
-  // CONFIGURATION — Edit this section only
+  // CONFIGURATION
   // ============================================================
 
-  // The URL of your Google Sites course page
-  const COURSE_URL = "https://phli2301a1l1.malearnsa.com/";
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzXC4Ef5WxNX0aPov7Q1Kdn2DiXuODd74w3iOCtovrw86o9grwVREqNsRdhlyQkoBnQ/exec';
 
-  // Your valid access codes — add as many as you need
-  // Each code should be unique per customer
-  // Format suggestion: MABL-XXXX (e.g. MABL-7291)
-  const VALID_CODES = [
-  // === Batch 1 — MAL- (200 codes) ===
-  "MAL-S4XA","MAL-4TVA","MAL-8ZP9","MAL-UGUX","MAL-GD7S","MAL-LPQQ","MAL-45BU","MAL-PUJS","MAL-WQL5","MAL-ZYHZ",
-  "MAL-632P","MAL-QNCZ","MAL-KRNF","MAL-DQT5","MAL-EDHV","MAL-ET3T","MAL-AS96","MAL-LJN2","MAL-YGRW","MAL-BCG4",
-  "MAL-F67D","MAL-BMTW","MAL-WPBU","MAL-LHX4","MAL-SD89","MAL-3AKQ","MAL-4639","MAL-6X2U","MAL-U92B","MAL-MJHT",
-  "MAL-2DJ7","MAL-SZX3","MAL-ZEH9","MAL-KYZF","MAL-7G3Q","MAL-9GQH","MAL-FN4Q","MAL-RV2B","MAL-XECL","MAL-Y757",
-  "MAL-P6K9","MAL-SC8T","MAL-DM2L","MAL-TVTW","MAL-HSLX","MAL-AQFZ","MAL-Z9D3","MAL-PSA8","MAL-DKN7","MAL-LQ3H",
-  "MAL-B9P4","MAL-F2LG","MAL-QN8L","MAL-AJLC","MAL-58TN","MAL-KWEZ","MAL-XPRC","MAL-TP2Z","MAL-TETQ","MAL-Q4NM",
-  "MAL-29NA","MAL-KEAA","MAL-7368","MAL-99JX","MAL-DFTW","MAL-LNV3","MAL-QD6N","MAL-YS9L","MAL-TSMZ","MAL-5929",
-  "MAL-5PEM","MAL-KXL9","MAL-SF98","MAL-UZQE","MAL-WGG6","MAL-WBGX","MAL-98EL","MAL-E7P8","MAL-P6MH","MAL-L5Y6",
-  "MAL-PU58","MAL-PQ2N","MAL-4P9W","MAL-KBFV","MAL-Q3P9","MAL-LVE7","MAL-ZMQV","MAL-UYS2","MAL-USWN","MAL-6352",
-  "MAL-8N8Y","MAL-7PXR","MAL-FFH7","MAL-ZW54","MAL-HYBZ","MAL-B4EH","MAL-75E6","MAL-7MUM","MAL-2W67","MAL-PC5T",
-  "MAL-99UE","MAL-XQXP","MAL-3QRE","MAL-Y43L","MAL-L7NE","MAL-32KA","MAL-W7FX","MAL-CF4Q","MAL-HWT4","MAL-6ZNX",
-  "MAL-9P7H","MAL-TX3U","MAL-PKH6","MAL-BKM9","MAL-R9KP","MAL-Z7ST","MAL-ZSWP","MAL-5HB6","MAL-WPQK","MAL-SG42",
-  "MAL-P78P","MAL-5F35","MAL-HQE9","MAL-32HM","MAL-5DGN","MAL-ZU7Z","MAL-G8WL","MAL-CYQX","MAL-4Y73","MAL-RMLN",
-  "MAL-EN4V","MAL-TCRQ","MAL-33QM","MAL-D85U","MAL-8QE3","MAL-GWY2","MAL-7QLL","MAL-FEF4","MAL-SHSX","MAL-ZKWE",
-  "MAL-UEGG","MAL-EAD8","MAL-7S9L","MAL-JFMB","MAL-NG8K","MAL-FNRX","MAL-3M2J","MAL-ZJDK","MAL-39W4","MAL-56V5",
-  "MAL-F3QZ","MAL-5TL5","MAL-KVY3","MAL-4S5F","MAL-D46L","MAL-VVYJ","MAL-8L96","MAL-8FV8","MAL-U8FY","MAL-MNG2",
-  "MAL-2ADF","MAL-4HML","MAL-3WFU","MAL-S7K7","MAL-H3TZ","MAL-3Q9C","MAL-MNCT","MAL-YZ7P","MAL-2387","MAL-D8DL",
-  "MAL-H6KE","MAL-YUB7","MAL-WLKS","MAL-896G","MAL-2UMJ","MAL-6L2P","MAL-HH3H","MAL-XMYT","MAL-AAHA","MAL-6HU8",
-  "MAL-MXJK","MAL-N58J","MAL-UCGN","MAL-D6TC","MAL-JDXY","MAL-V7TA","MAL-6EUU","MAL-HFYQ","MAL-KXZ4","MAL-6YZC",
-  "MAL-J9VQ","MAL-2N3P","MAL-ECCQ","MAL-6GLF","MAL-RRJX","MAL-7BHD","MAL-GF3Z","MAL-YB4D","MAL-ACY2","MAL-HYAY",
+  // Phase 1: keep Google Sites as player (current URL)
+  // Phase 2: switch to → 'https://checkout.malearnsa.com/watch.html'
+  //          and pass the code as token: ?token=CODE&course=beyond-lighting
+  const PLAYER_BASE_URL = 'https://checkout.malearnsa.com/watch.html';
+  const COURSE_ID       = 'beyond-lighting';
 
-  // === Batch 2 — MABL- (500 codes) ===
-  "MABL-UK44","MABL-Q4UD","MABL-FLDA","MABL-MA8J","MABL-MPJP","MABL-4CWU","MABL-KXCG","MABL-BSGT","MABL-WEKY","MABL-4XQE",
-  "MABL-9Q2F","MABL-NV58","MABL-TB73","MABL-KTXJ","MABL-LS7G","MABL-FBPP","MABL-CZHS","MABL-TEJV","MABL-UV7G","MABL-6S42",
-  "MABL-5372","MABL-ADPP","MABL-CBN3","MABL-VF92","MABL-58R2","MABL-SFD5","MABL-7PSV","MABL-X8NH","MABL-63DY","MABL-2KRW",
-  "MABL-5YVD","MABL-QUY6","MABL-MJLC","MABL-RJZY","MABL-B7PR","MABL-M99V","MABL-FBZM","MABL-SP6N","MABL-7LUD","MABL-TGNZ",
-  "MABL-TCC3","MABL-J7HF","MABL-XZE5","MABL-CT87","MABL-QHLP","MABL-38Q6","MABL-3VL6","MABL-4US7","MABL-UYJ6","MABL-35BV",
-  "MABL-ZGZ6","MABL-SWEG","MABL-ES6A","MABL-LLEY","MABL-6A5D","MABL-VXNM","MABL-QW75","MABL-L3LG","MABL-W22G","MABL-T3K6",
-  "MABL-UV42","MABL-5WUP","MABL-XXWN","MABL-Z96R","MABL-T44S","MABL-2FUZ","MABL-2J8L","MABL-XBGZ","MABL-WZRQ","MABL-TEX2",
-  "MABL-A8CK","MABL-PHWJ","MABL-RH7W","MABL-6USF","MABL-XHY7","MABL-3GRG","MABL-YZTJ","MABL-6PHG","MABL-RQQB","MABL-FUJY",
-  "MABL-Y9FC","MABL-272A","MABL-9C5K","MABL-HPZD","MABL-C3JM","MABL-6JZQ","MABL-GYP6","MABL-K2KA","MABL-ZHHM","MABL-MZHC",
-  "MABL-EECU","MABL-HEDD","MABL-53V2","MABL-KT52","MABL-WE48","MABL-QPU7","MABL-PTR4","MABL-62PE","MABL-97RB","MABL-TDW9",
-  "MABL-WGKM","MABL-AUYS","MABL-CZTB","MABL-CXF5","MABL-MKB4","MABL-2D8K","MABL-4SRC","MABL-6EL5","MABL-UQHA","MABL-QG6L",
-  "MABL-YK22","MABL-Q3AY","MABL-6X7G","MABL-TRQB","MABL-J9BT","MABL-DNMW","MABL-HY6C","MABL-MX6X","MABL-ZMAG","MABL-Y3CE",
-  "MABL-XPAX","MABL-MFP2","MABL-ZPNJ","MABL-UHFP","MABL-QT3G","MABL-QHQR","MABL-EEFA","MABL-JTBE","MABL-RRT2","MABL-3HPL",
-  "MABL-AQ56","MABL-X78M","MABL-ZCDB","MABL-K7KQ","MABL-B9UF","MABL-HMZ6","MABL-JZMB","MABL-KDY4","MABL-JB4G","MABL-XZVA",
-  "MABL-YR3Y","MABL-2YRV","MABL-A4DW","MABL-AWGT","MABL-2DX8","MABL-Q8CB","MABL-UCCD","MABL-KGGP","MABL-UDFU","MABL-GAQ9",
-  "MABL-384W","MABL-PB2S","MABL-8UR4","MABL-EKXS","MABL-WDJC","MABL-V6WD","MABL-YFUG","MABL-B5SW","MABL-A864","MABL-8X4L",
-  "MABL-3PYC","MABL-KGD9","MABL-MVRU","MABL-46ET","MABL-2LFT","MABL-MVEY","MABL-KMFG","MABL-4MLW","MABL-B644","MABL-89ZS",
-  "MABL-F8MR","MABL-CM22","MABL-L5NM","MABL-FDQR","MABL-57AP","MABL-Z7KU","MABL-8BTB","MABL-UPHA","MABL-59ZZ","MABL-35PN",
-  "MABL-CR7Q","MABL-AW4G","MABL-YJMA","MABL-GWPS","MABL-Z8V5","MABL-AXF4","MABL-XNGS","MABL-U6RU","MABL-W7K6","MABL-M44X",
-  "MABL-RQ7T","MABL-P87L","MABL-NWLR","MABL-524D","MABL-U2XP","MABL-YWNY","MABL-QJGW","MABL-PH33","MABL-LSPJ","MABL-WL78",
-  "MABL-ZWWK","MABL-WX2A","MABL-YB8A","MABL-E6KF","MABL-SDDR","MABL-VN3M","MABL-UXDG","MABL-3HLF","MABL-9W38","MABL-LBQZ",
-  "MABL-JVJ7","MABL-42YJ","MABL-VED3","MABL-ZE52","MABL-PVSR","MABL-JYCV","MABL-3C7C","MABL-N5EZ","MABL-J7CB","MABL-WE7J",
-  "MABL-SNJZ","MABL-GJQ9","MABL-54N2","MABL-FDTS","MABL-Y2X3","MABL-U5HD","MABL-YU3S","MABL-V8AW","MABL-RAF8","MABL-HWSV",
-  "MABL-JPXD","MABL-7W6Y","MABL-Q8TT","MABL-CNTA","MABL-YG6D","MABL-9Z3C","MABL-DQ5J","MABL-ELSA","MABL-SBZZ","MABL-MHJP",
-  "MABL-ZLWL","MABL-PP8U","MABL-QXT7","MABL-72BH","MABL-MZYQ","MABL-3GX7","MABL-NL5M","MABL-C3GY","MABL-ZEDK","MABL-SBF2",
-  "MABL-P436","MABL-EVMD","MABL-J7M6","MABL-Y96L","MABL-RX7G","MABL-C48V","MABL-RGDB","MABL-CYGA","MABL-7DTJ","MABL-M7HG",
-  "MABL-AP7K","MABL-C5SP","MABL-UZ74","MABL-HRDX","MABL-X4NF","MABL-2MF2","MABL-2Y6Z","MABL-AME4","MABL-VFQ3","MABL-3PH2",
-  "MABL-GPJL","MABL-RK7U","MABL-H3V9","MABL-AZRT","MABL-3EE5","MABL-XQQR","MABL-8SH2","MABL-EWZT","MABL-JDWJ","MABL-S6P8",
-  "MABL-4R2R","MABL-6B43","MABL-6HM2","MABL-MN3B","MABL-86QG","MABL-SUWS","MABL-L5YZ","MABL-YCRX","MABL-6K2A","MABL-BPUA",
-  "MABL-MLBC","MABL-R3BD","MABL-QF3U","MABL-5CM6","MABL-F7NA","MABL-VPQS","MABL-8RBH","MABL-LLMF","MABL-K7XW","MABL-6H7M",
-  "MABL-2UHB","MABL-LAQK","MABL-AWZQ","MABL-HDZH","MABL-UVSX","MABL-2AVY","MABL-2MFL","MABL-SNS5","MABL-DREF","MABL-N6YJ",
-  "MABL-VRF3","MABL-44Z9","MABL-PL9M","MABL-WFDR","MABL-AFJA","MABL-9G7X","MABL-UU2G","MABL-2FJ3","MABL-YPHD","MABL-CTY5",
-  "MABL-VKAH","MABL-YPQY","MABL-V9M3","MABL-S7LA","MABL-8D4J","MABL-DWHS","MABL-JV6Q","MABL-48MF","MABL-4GBA","MABL-PRDZ",
-  "MABL-GH4E","MABL-YUVA","MABL-2TTE","MABL-V8DN","MABL-FHXD","MABL-9VUZ","MABL-AV6B","MABL-WJ8K","MABL-JA7E","MABL-PYHS",
-  "MABL-USYU","MABL-P4D5","MABL-5NU6","MABL-2ERN","MABL-5B9K","MABL-TLYT","MABL-LDDA","MABL-RM4E","MABL-6TGY","MABL-NAC9",
-  "MABL-QUSS","MABL-5K9L","MABL-JVTR","MABL-YYC6","MABL-Q3EJ","MABL-MFLX","MABL-T39J","MABL-U52C","MABL-2CGT","MABL-VQR5",
-  "MABL-JRT5","MABL-8QMK","MABL-JKF3","MABL-ET2J","MABL-ADH2","MABL-9N65","MABL-JYA8","MABL-RDTL","MABL-T7R7","MABL-UYVK",
-  "MABL-EQCS","MABL-6KDL","MABL-8RSQ","MABL-4NXA","MABL-N5Q9","MABL-KB3P","MABL-A23W","MABL-4HCP","MABL-Y7UX","MABL-EEZ8",
-  "MABL-45S7","MABL-ERU8","MABL-MCVG","MABL-9DG9","MABL-E2Z2","MABL-R6RS","MABL-AX6R","MABL-RETJ","MABL-5HKN","MABL-TC3R",
-  "MABL-W476","MABL-NA6N","MABL-U2VZ","MABL-KJ67","MABL-LRRR","MABL-QE7C","MABL-UB3A","MABL-9YSD","MABL-R75T","MABL-VWXZ",
-  "MABL-Z6WZ","MABL-X6EA","MABL-QVBJ","MABL-88PH","MABL-MEJN","MABL-LQHC","MABL-83G4","MABL-VJFU","MABL-2HSP","MABL-C5JD",
-  "MABL-HEDW","MABL-HMNZ","MABL-3ARQ","MABL-JMNH","MABL-EMR7","MABL-ZYMX","MABL-S2RP","MABL-5HRQ","MABL-FYHK","MABL-QBJ5",
-  "MABL-TQVV","MABL-FBMH","MABL-23LF","MABL-4Y65","MABL-ZPL9","MABL-PZNW","MABL-J82B","MABL-HJMM","MABL-BXZW","MABL-BY56",
-  "MABL-XLT2","MABL-K2V3","MABL-YQJS","MABL-G3TX","MABL-5DKJ","MABL-C5AB","MABL-3LLF","MABL-YPYD","MABL-ATET","MABL-L65H",
-  "MABL-S5G6","MABL-G2V8","MABL-AC8J","MABL-3B3D","MABL-KTQX","MABL-9CKF","MABL-JN3H","MABL-NCJL","MABL-S9TK","MABL-Y3AU",
-  "MABL-2N6J","MABL-7ZK8","MABL-RKT2","MABL-EUJS","MABL-2FQA","MABL-3XLF","MABL-RJS4","MABL-B87B","MABL-G97X","MABL-QXQ6",
-  "MABL-N8M7","MABL-FNTE","MABL-SA3R","MABL-FYUF","MABL-5GJT","MABL-NA6G","MABL-TB3B","MABL-QAND","MABL-MAHG","MABL-WAPM",
-  "MABL-BFF3","MABL-NSB2","MABL-QE5H","MABL-PPD8","MABL-MLMQ","MABL-T8RG","MABL-Q6XA","MABL-Y9XU","MABL-U4FD","MABL-EWP6",
-  "MABL-5YVN","MABL-ADDN","MABL-MKBD","MABL-T7HY","MABL-5HJA","MABL-MVX7","MABL-HBE8","MABL-KMYU","MABL-98L4","MABL-WVWQ",
-  "MABL-V8J4","MABL-6GZ9","MABL-T998","MABL-G6RJ","MABL-NPKA","MABL-3JA9","MABL-866R","MABL-HFYL","MABL-AP44","MABL-RCV3"
-];
-
-  // Max failed attempts before lockout (per session)
+  // Max failed attempts before lockout
   const MAX_ATTEMPTS = 5;
 
   // ============================================================
-  // Logic — Do not edit below this line
+  // Logic
   // ============================================================
 
   let attempts = 0;
-  let locked = false;
+  let locked   = false;
 
-  const input   = document.getElementById('codeInput');
-  const btn     = document.getElementById('enterBtn');
-  const msg     = document.getElementById('msg');
-  const attMsg  = document.getElementById('attemptsMsg');
+  const input  = document.getElementById('codeInput');
+  const btn    = document.getElementById('enterBtn');
+  const msg    = document.getElementById('msg');
+  const attMsg = document.getElementById('attemptsMsg');
   const overlay = document.getElementById('successOverlay');
 
-  // Allow Enter key
   input.addEventListener('keydown', e => {
     if (e.key === 'Enter' && !locked) checkCode();
   });
 
-  // Auto-uppercase as user types
   input.addEventListener('input', () => {
     input.value = input.value.toUpperCase();
     input.classList.remove('error', 'success');
@@ -475,7 +378,7 @@
     msg.className = 'msg';
   });
 
-  function checkCode() {
+  async function checkCode() {
     if (locked) return;
 
     const code = input.value.trim().toUpperCase();
@@ -486,43 +389,57 @@
       return;
     }
 
-    // Show loading state
+    // Loading state
     btn.disabled = true;
     document.getElementById('btnText').innerHTML = '<div class="spinner"></div>';
 
-    setTimeout(() => {
-      if (VALID_CODES.includes(code)) {
-        // Valid code
+    try {
+      const res  = await fetch(`${APPS_SCRIPT_URL}?action=validate_token&token=${encodeURIComponent(code)}&course=${COURSE_ID}`);
+      const data = await res.json();
+
+      if (data.valid === true) {
+        // Valid — show success overlay then redirect
         input.classList.add('success');
         overlay.classList.add('show');
 
-        setTimeout(() => {
-          window.location.href = COURSE_URL;
-        }, 1800);
+        const playerUrl = `${PLAYER_BASE_URL}?token=${encodeURIComponent(code)}&course=${COURSE_ID}`;
+        setTimeout(() => { window.location.href = playerUrl; }, 1800);
 
       } else {
-        // Invalid code
-        attempts++;
-        input.classList.add('error');
-        btn.disabled = false;
-        document.getElementById('btnText').textContent = 'دخول إلى الدورة';
-
-        const remaining = MAX_ATTEMPTS - attempts;
-
-        if (attempts >= MAX_ATTEMPTS) {
-          locked = true;
-          btn.disabled = true;
-          showMsg('تم تجاوز عدد المحاولات المسموح بها. يرجى التواصل مع الدعم.', 'error');
-          attMsg.textContent = '';
-          input.disabled = true;
-        } else {
-          showMsg('رمز الوصول غير صحيح. يرجى المحاولة مرة أخرى.', 'error');
-          attMsg.textContent = `متبقي ${remaining} محاولة`;
-        }
-
-        input.select();
+        // Invalid
+        handleInvalidCode();
       }
-    }, 700); // Slight delay feels more secure
+
+    } catch (err) {
+      // Network error — fail open (never block a paying customer)
+      console.warn('Validation network error, failing open:', err);
+      input.classList.add('success');
+      overlay.classList.add('show');
+      // On network failure, redirect without token (Google Sites doesn't need it)
+      setTimeout(() => { window.location.href = PLAYER_BASE_URL; }, 1800);
+    }
+  }
+
+  function handleInvalidCode() {
+    attempts++;
+    input.classList.add('error');
+    btn.disabled = false;
+    document.getElementById('btnText').textContent = 'دخول إلى الدورة';
+
+    const remaining = MAX_ATTEMPTS - attempts;
+
+    if (attempts >= MAX_ATTEMPTS) {
+      locked = true;
+      btn.disabled = true;
+      input.disabled = true;
+      showMsg('تم تجاوز عدد المحاولات المسموح بها. يرجى التواصل مع الدعم.', 'error');
+      attMsg.textContent = '';
+    } else {
+      showMsg('رمز الوصول غير صحيح. يرجى المحاولة مرة أخرى.', 'error');
+      attMsg.textContent = `متبقي ${remaining} محاولة`;
+    }
+
+    input.select();
   }
 
   function showMsg(text, type) {
